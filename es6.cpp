@@ -14,10 +14,7 @@ int main(){
 int quanti;
 cout << "Quanti? ";
 cin >> quanti;
-for (int i=0; i<quanti; i++){
-int res = fib(i);
-cout << res << endl;
-}
+cout << fib(quanti);
 
 return 0;
 }
