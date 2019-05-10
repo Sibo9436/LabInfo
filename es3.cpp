@@ -3,10 +3,7 @@
 
 using namespace std;
 bool check(double x, double y, double cx, double cy, double r){
-	if (pow(x-cx,2)+pow(y-cy,2)<=pow(r,2)){
-		return true;
-	}
-	return false;
+	return (pow(x-cx,2)+pow(y-cy,2)<=pow(r,2));
 }
 int main(){
 double xp,yp;
