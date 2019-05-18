@@ -1,8 +1,9 @@
 #include <iostream>
 #include <cmath>
-
+#include <ctime>
 using namespace std;
-
+const int ms = 5;
+int ue;
 void read_int_vector (int a[], int n){
 
 	
@@ -16,16 +17,25 @@ void print_int_vector (int a[], int n){
 
 	cout << "[";
 	for (int i=0; i < n; i++){
-	
+		if (i==n-1){
+		cout <<a[i];
+		}else {	
 		cout <<a[i] << ", ";
+		}
 	}
-	cout << "]";
+	cout << "]"<< endl;
 
 
 }
+void random_double_vector(double v[], int s, double min, double max){
+	srand (time(NULL));
+	for (int i=0; i< s;i++){
+	v[i]=(double)rand()/max+min;
+	}
+}
 
 void random_int_vector (int v[], int s, int min, int max){
-
+	srand (time(NULL));
 	for (int i=0; i < s; i++){
 		v[i]=rand()% max+min;
 	}
@@ -78,14 +88,121 @@ double norm(const double a[], int s ){
 	return sqrt(thing);
 }
 
+int weird(int a[], int n, int min, int max){
+	int mm=min;
+	int b[max-min];
+	for (int i=min; i<=max; i++){
+		
+		mm = (a[i] < a[mm] ) ? i : mm;	
+	}
+	return mm;
+}
+void selection_sort(int a[], int n ){
+	int r[n];
+	int swap;
+	int index;
+	int b;
+	for (int i =0; i<n; i++){
+		swap = a[i];
+		index = weird(a,n,i,n-1);
+		b = a[index];
+		a[i]=b;
+		a[index]=swap;
+
+	}
+	print_int_vector(a,n);
+}
+
+
+int part(int v[], int inf, int sup){
+
+	int piv = v[inf];
+	int i = inf +1;
+	int j = sup;
+	int swap;
+	while (i<=j){
+		if (v[i] <= piv){
+			i++;
+		}else if(v[i] > piv and v[j] > piv){
+		
+			j--;
+		}else if(v[i] > piv or v[j] <= piv){
+			swap = v[i];
+			v[i]=v[j];
+			v[j]=swap;
+			i++;
+			j--;
+			
+		}
+	}
+	v[inf]=v[j];
+	v[j]=piv;
+	return j;
+}
+
+void quick_sort(int v[], int inf, int sup){
+	ue++;	
+	if (inf<sup){
+		int piv;
+		piv = part(v,inf,sup);
+		quick_sort(v,inf,piv-1);
+		quick_sort(v,piv+1,sup);
+	
+	}
+
+
+
+
+}
+void random_double_matrix(double m[][ms], int s1, int s2, double min, double max){
+	
+	srand(time(NULL));
+	for (int i=0; i< s1; i++){
+		for (int j=0; j< s2; j++){
+			m[i][j] = (double)rand()/max;		
+		}
+	}
+
+}
+void print_double_matrix(double m[][ms], int s1, int s2){
+	
+	for (int i=0; i < s1; i++){
+		for (int j=0; j < s2; j++){
+			cout << "| " << m[i][j]; 
+		}	
+	cout << "|" << endl;
+	}
+
+}
 int main(){
 
-int n = 10;
+int n;
+/*
+cout << "How big the vecc? ";
+cin >> n;
 int a[n];
 
-random_int_vector(a, n,0,100);
+random_int_vector(a,n,0,10000);
 print_int_vector(a,n);
-
+double start = clock();
+//selection_sort(a,n);
+double end = clock();
+double seconds = (end-start)/CLOCKS_PER_SEC;
+cout << "Sel sort in " << seconds << " secondi" << endl;
+start = clock();
+quick_sort(a,0,n-1);
+end = clock();
+seconds = (end-start)/CLOCKS_PER_SEC;
+cout << "Quick sort in " << seconds << " secondi" << " per " << ue << " iterazioni" <<endl;
+//print_int_vector(a,n);
+//cout << part(a,0,n-1);
+//print_int_vector(a,n);
+*/
+int r=5;
+int c=5;
+double m[r][ms];
+random_double_matrix(m,r,ms,1,10);
+print_double_matrix(m,r,ms);
 
 
 
