@@ -159,7 +159,7 @@ void random_double_matrix(double m[][ms], int s1, int s2, double min, double max
 	srand(time(NULL));
 	for (int i=0; i< s1; i++){
 		for (int j=0; j< s2; j++){
-			m[i][j] = (double)rand()/max;		
+			m[i][j] = (double)rand()/RAND_MAX*max-min;		
 		}
 	}
 
@@ -174,8 +174,34 @@ void print_double_matrix(double m[][ms], int s1, int s2){
 	}
 
 }
-int main(){
+int matr_vett(double a[][ms],int r, int c, double v1[],double v2[],int l1,int l2){
+    if (r==l2 and l1 == c){
+	double temp;
+	for (int i=0; i<r;i++){
+	    for (int j=0;j<c;j++){
+	        temp += a[i][j]*v1[j];	
+	    }
+        v2[i]=temp;
+        temp=0;	    
+        }
+	return 0;
+    }else {
+	return 1;
+    }
+}
 
+int matrix(double m1[][ms], double m2[][ms], double m3[][ms], int r1,int c1, int r2,int c2,int r3, int c3){
+    for (int i=0; i<r1; i++){
+    	for (int j=0; j<c2;j++){
+	    for (int n=0; n<c1;n++){
+		m3[i][j] += m1[i][n]*m2[n][j];	
+	    }    
+	}
+    }
+return 0 ;
+}
+
+int main(){
 int n;
 /*
 cout << "How big the vecc? ";
