@@ -2,159 +2,164 @@
 #include <cmath>
 #include <ctime>
 #include "vetmat.h"
+
 using namespace std;
-int ue = 0;
-void read_int_vector (int a[], int n){
 
+Vett::Vett(){}
 
+Vett::Vett(int l): len(l){
+    
+    p = new double[l];
+    for (int i=0; i< len; i++){
+	p[i]= 0; 	
+    }    
+}
+Vett::Vett(double a[],int l):len(l){
+    
+    p = new double[len];
+    for (int i = 0; i< len; i++){
+	p[i]= a[i];
+    }
+}
+
+void Vett::print (){
+
+    cout << "[";
+    for (int i=0; i < len; i++){
+	if (i==len-1){
+	    cout <<p[i];
+	}else {	
+	    cout <<p[i] << ", ";
+	}
+    }
+    cout << "]"<< endl;
+}
+
+void Vett::random_double_vector(double min, double max){
+
+    srand (time(NULL));
+	for (int i=0; i< len;i++){
+	    p[i]=(double)rand()/max+min;
+	}
+}
+
+Vett Vett::operator+ (const Vett& b){
+
+    Vett temp(len);
+    if (len == b.len){
+        for (int i=0; i < len; i++){	    	
+	    temp.p[i] = p[i]+b.p[i];
+	}
+    }else {
+        cout << "Impossibile sommare Vettori, restituzione vettore nullo" << endl;
+    }
+    return temp;
+}
+    
+Vett Vett::operator- (const Vett& b){
+   
+    Vett temp(len);
+    if (len==b.len){	
+	for (int i = 0; i< len; i++){
+	    temp.p[i]=p[i]-b.p[i];
+	}	
+    }
+    return temp;
+}
+Vett Vett::operator*(const double fatt){
 	
-	for (int i=0;i<n;i++){
-	
-		cin >> a[i];	
-	} 
+    Vett temp(len);
+    for (int i=0; i < len; i++){
+        temp.p[i]=p[i]*fatt;
+    }
+    return temp;
 }
 
-void print_int_vector (int a[], int n){
+double Vett::operator*(const Vett& b){
 
-	cout << "[";
-	for (int i=0; i < n; i++){
-		if (i==n-1){
-		cout <<a[i];
-		}else {	
-		cout <<a[i] << ", ";
-		}
+    double dot = 0;
+    if (len == b.len){
+	for (int i=0; i < len; i++){
+	    dot += p[i]*b.p[i];
 	}
-	cout << "]"<< endl;
-
-
-}
-void random_double_vector(double v[], int s, double min, double max){
-	srand (time(NULL));
-	for (int i=0; i< s;i++){
-	v[i]=(double)rand()/max+min;
-	}
-}
-
-void random_int_vector (int v[], int s, int min, int max){
-	srand (time(NULL));
-	for (int i=0; i < s; i++){
-		v[i]=rand()% max+min;
-	}
-}
-
-void print_double_vector (double v[], int s){
-
-	cout << "[";
-	for (int i=0; i < s; i++){
-	
-		cout << v[i] << ", ";
-	}
-	cout << "]";
-}
-
-void vector_sum (const double a[], const double b[],double r[], int n){
-	
-	for (int i=0; i < n; i++){
-		
-		r[i] = a[i]+b[i];
-	}
-}
-void vector_diff (const double a[], const double b[], double r[], int n){
+    }
+    return dot;
 
 }
-void scalare (const double a[], double fatt, double r[], int n){
 
-	for (int i=0; i < n; i++){
+double Vett::norm(){
 
-		r[i]= a[i]*fatt;
-	}
+    int thing;
+    for (int i=0; i < len; i++){
+	thing += pow(p[i],2);
+    }
+    return sqrt(thing);
 }
 
-double dot_product(const double a[],const double b[],int s){
+int Vett::weird(int min, int max){
 
-	double dot=0;
-	for (int i=0; i < s; i++){
-		dot += a[i]*b[i];
+    int mm=min;
+    int b[max-min];
+    for (int i=min; i<=max; i++){	
+	mm = (p[i] < p[mm] ) ? i : mm;	
+    }
+    return mm;
+}
+void Vett::selection_sort(){
+
+    int r[len];
+    int swap;
+    int index;
+    int b;
+    for (int i =0; i<len; i++){
+    	swap = p[i];		
+	index = weird(i,len-1);
+    	b = p[index];
+	p[i]=b;
+p[index]=swap;
+
 	}
 	
-	return dot;
-
-}
-
-double norm(const double a[], int s ){
-	int thing;
-	for (int i=0; i < s; i++){
-		thing += pow(a[i],2);
-	}
-	return sqrt(thing);
-}
-
-int weird(int a[], int n, int min, int max){
-	int mm=min;
-	int b[max-min];
-	for (int i=min; i<=max; i++){
-		
-		mm = (a[i] < a[mm] ) ? i : mm;	
-	}
-	return mm;
-}
-void selection_sort(int a[], int n ){
-	int r[n];
-	int swap;
-	int index;
-	int b;
-	for (int i =0; i<n; i++){
-		swap = a[i];
-		index = weird(a,n,i,n-1);
-		b = a[index];
-		a[i]=b;
-		a[index]=swap;
-
-	}
-	print_int_vector(a,n);
 }
 
 
-int part(int v[], int inf, int sup){
+int Vett::part(int inf, int sup){
 
-	int piv = v[inf];
+	int piv = p[inf];
 	int i = inf +1;
 	int j = sup;
 	int swap;
 	while (i<=j){
-		if (v[i] <= piv){
+		if (p[i] <= piv){
 			i++;
-		}else if(v[i] > piv and v[j] > piv){
+		}else if(p[i] > piv and p[j] > piv){
 		
 			j--;
-		}else if(v[i] > piv or v[j] <= piv){
-			swap = v[i];
-			v[i]=v[j];
-			v[j]=swap;
+		}else if(p[i] > piv or p[j] <= piv){
+			swap = p[i];
+			p[i]=p[j];
+			p[j]=swap;
 			i++;
 			j--;
 			
 		}
 	}
-	v[inf]=v[j];
-	v[j]=piv;
+	p[inf]=p[j];
+	p[j]=piv;
 	return j;
 }
 
-void quick_sort(int v[], int inf, int sup){
-	ue++;	
+void Vett::quick_sort(int inf, int sup){
+    	
 	if (inf<sup){
 		int piv;
-		piv = part(v,inf,sup);
-		quick_sort(v,inf,piv-1);
-		quick_sort(v,piv+1,sup);
-	
-	}
-
-
-
+		piv = part(inf,sup);
+		quick_sort(inf,piv-1);
+		quick_sort(piv+1,sup);
+    	}
 
 }
+/*
 void random_double_matrix(double m[][ms], int s1, int s2, double min, double max){
 	
 	srand(time(NULL));
@@ -200,7 +205,7 @@ int matrix(double m1[][ms], double m2[][ms], double m3[][ms], int r1,int c1, int
 	}
     }
 return 0 ;
-}
+}*/
 /*
 int main(){
 int n;
