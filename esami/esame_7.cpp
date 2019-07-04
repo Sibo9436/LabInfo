@@ -1,9 +1,10 @@
 #include <cmath>
 #include <iostream>
-
+//Esame del 10/07/2015
 using namespace std;
 
-
+//Scrivere una funzione che, dato un numero intero non negativo n, calcoli 
+//la migliore approssimazione per difetto di rad(n)(1000).
 int es_1(int n){
     if (n < 0) return 0;
     int res=1;
@@ -16,14 +17,15 @@ int es_1(int n){
 	    res *= j;
 	    cout << res << " "	;
 	}
+	cout << endl;
 	j++;
     }
-
-
     return j-1;
 }
 
-
+//Scrivere una funzione che, dato un array a di n numeri interi, 
+//ritorni un nuovo array che contiene i numeri presenti in a e 
+//in più uno 0 inserito ogni volta che appare un 1 in a.
 int *es_2(int a[],int n,int  &b){
     int j=0;
     for (int i = 0;i<n;i++){
@@ -46,6 +48,9 @@ int *es_2(int a[],int n,int  &b){
     return p;
 }
 
+//Scrivere una funzione che, dati due array ordinati a e b contenti rispettivamente 
+//m ed n numeri interi, stampi a video la differenza di a e b, ovvero i numeri 
+//presenti in a ma non in b.
 int *es_3(int a[],int n,int b[], int m){
     int cont = 0;
     bool ok;
@@ -79,7 +84,8 @@ int *es_3(int a[],int n,int b[], int m){
     return p;
 }
 
-
+//C'è un modo molto più semplice, veloce e sensato di risolvere questo esercizio
+//Apparentemente avevo voglia di fare tutt'altra cosa e complicarmi la vita.
 
 
 int main(){
