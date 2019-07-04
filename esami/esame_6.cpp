@@ -1,9 +1,17 @@
 #include <iostream>
 #include <cmath>
 
+//Esame del 15/09/2015
+
 using namespace std;
 
-
+//Scrivere una funzione che, dato un numero n, stampi a video
+// la seguente tabella n x n
+// 1 2 3 4 5 
+// 2 4 6 8 10
+// 3 6 9 12 15
+// 4 8 12 16 20
+// 5 10 15 20 25
 void es_1(int n){
     for (int i = 1; i <= n; i++){
 	for (int j = 1; j <= n; j++){
@@ -13,6 +21,9 @@ void es_1(int n){
     }
 }
 
+
+//Scrivere una funzione che, dato un array a di n numeri interi, ritorni un nuovo array
+// che contiene solo i numeri pari presenti in a, nello stesso ordine in cui compaiono.
 int es_2(int a[],int n, int &b){
     int *p;
     for (int i=0;i<n;i++){
@@ -31,10 +42,10 @@ int es_2(int a[],int n, int &b){
     }
     cout << endl;
     return b;
-
-
 }
 
+//Scrivere una funzione che, dati due array a e b contenenti rispettivamente m ed n
+//numeri interi, ritorni true se ò'array a è un sotto-array di b, false altrimenti.
 bool es_3(int a[],int b[],int n,int m){
     int k = 0;
     bool dan = true;
