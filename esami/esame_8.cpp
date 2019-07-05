@@ -1,7 +1,11 @@
 #include <iostream>
 #include <cmath>
-
+//Esame del 11/07/2014
 using namespace std;
+
+//Scrivere una funzione che prenda come parametri un vettore di interi e 
+//il numero di elementi del vettore e restituisca true se gli elementi sono in
+//ordine crescente e false altrimenti.
 bool es_1(int a[],int n){
     bool check = true;
     for (int i = 1; i<n;i++){
@@ -11,8 +15,35 @@ bool es_1(int a[],int n){
     }
     return check;
 }
-double es_2(double x, double e){
-    double res;
+
+//Scrivere una funzione che, dati due numeri reali, x e eps, restituisca
+//il valore di sin(x) con precisione eps.
+double es_2(double x, double eps){
+    double res = x;
+    double num=x,den=1,val;
+    int k = 3, j = 1;
+    do{
+	num*= x * x;
+	den *= k*(k-1);
+	val = num/den;
+	res += (j%2==0)? val : -val;
+	j++;
+	k +=2;
+    }while((val > 0 and val > eps) or ( val < 0 and -val > eps));
+    return res;
+}
+    
+//Scrivere una funzione che prenda una matrice A[r][c] e un vettore p[r] e
+//permuti le righe della matrice secondo il vettore p.
+int main(){
+    int a[] ={1,2,3};
+    int b[] = {0,1,2,3,4,5,20,7,8,9,10,11,12,13,14,15,16,17,18,19};
+    cout << f(a,3,3) << endl;
+    cout << f(a,20,7)<< endl;
+    cout << seno(1.25,0.0001) << endl;
+    return 0;
+}
+
     int i = 0;
     double buff = 0;
     double fact = 1;
