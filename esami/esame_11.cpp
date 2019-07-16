@@ -18,6 +18,19 @@ void es_1(int a[], int n){
 	a[min] = swap;
     }
 }
+//Again ma ricorsivo...?
+void es_1b(int a[], int n){
+    if (n==1) return;
+    int swap;
+    int max=0;
+    for (int i = 0 ; i < n ; i++){
+	max = ( a[i] > a[max])? i : max;
+    }
+    swap = a[0];
+    a[0] = a[max];
+    a[max] = swap;
+    es_1b(a+1,n-1);
+}
 
 //Di nuovo la funzione del seno
 double seno(double x, double eps){
@@ -48,7 +61,7 @@ void es_3(double a[], int n){
 }
 int main() {
     int a[] = {3,2,5,4,6,1};
-    es_1(a,6);
+    es_1b(a,6);
     for (int i = 0; i < 6; i++){
 	cout << a[i] << " ";
     }
@@ -59,7 +72,7 @@ int main() {
 	cout << b[i] << " ";
     }
     cout << endl;
-    cout << es_2((M_PI)/4,0.0001) << endl;
+    cout << seno((M_PI)/4,0.0001) << endl;
     double c[] = {1.2,0.5,2.3};
     es_3(c,3);
     return 0;
